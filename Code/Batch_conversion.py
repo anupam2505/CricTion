@@ -3,6 +3,7 @@ import json
 import argparse
 import os
 import datetime
+import ntpath
 
 def parse_arguments():
     parser = argparse.ArgumentParser()
@@ -27,13 +28,14 @@ def main():
     for f in os.listdir(folder_path):
         python_path = os.path.join(folder_path, f)
         with open(python_path, 'r') as stream:
+            file_name = ntpath.basename(str(python_path))
             try:
                 data = yaml.load(stream)
             except yaml.YAMLError as exc:
                 print(exc)
-        with open('data.txt', 'w') as outfile:
-            jsondata =json.dumps(data, outfile, ensure_ascii=False, default=jdefault).encode('utf-8')
-        print(jsondata)
+            with open("Json_Data/json_%s.json" % file_name, "w") as f:
+                f.write(json.dumps(data, f, ensure_ascii=False, default=jdefault).encode('utf-8'))
+                print(json.dumps(data, f, ensure_ascii=False, default=jdefault).encode('utf-8'))
 
 ##  For MAC users - Add argument like this -f "Data/odis"
 ##  For Window users - Add argument like this -f "Data\\odis`"
