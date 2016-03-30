@@ -31,7 +31,7 @@ def main():
             data = json.load(jsonf)
             try:
                 file_name = ntpath.basename(str(file_path)).split('.')[0]
-                destf = csv.writer(open("%s/%s_1.csv" % (dest_folder_path , file_name), "wb+"))
+                destf = csv.writer(open("%s/1/%s_1.csv" % (dest_folder_path ,file_name), "wb+"))
                 print file_name
                 run =0;
                 wickets =0;
@@ -67,7 +67,7 @@ def main():
                     destf.writerow([date, venue, ball, run, wickets, toss, team_playing, RPO, team1, team2, team_won] )
 
                 # 2nd Innings
-                destf = csv.writer(open("%s/%s_2.csv" % (dest_folder_path , file_name), "wb+"))
+                destf = csv.writer(open("%s/2/%s_2.csv" % (dest_folder_path , file_name), "wb+"))
                 run =0;
                 wickets =0;
                 destf.writerow(["Date","Venue","Balls", "Runs", "Wickets", "Toss", "Team_Playing","RPO", "Team1", "Team2", "Team_Won"])
