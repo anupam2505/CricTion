@@ -11,11 +11,11 @@ def logistic(df):
 
 def SVM_cross_validation(df):
     clf = svm.SVC(kernel='linear', C=1)
-    scores = cv.cross_val_score(clf, df,df['Won'] , cv=2)
+    scores = cv.cross_val_score(clf, df,df['Won'] , cv=2, scoring='f1_weighted')
     print scores
     print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
-    predicted = cv.cross_val_predict(clf, df,df["Won"], cv=10)
-    print metrics.accuracy_score(df["Won"], predicted)
+    # predicted = cv.cross_val_predict(clf, df,df["Won"], cv=10)
+    # print metrics.accuracy_score(df["Won"], predicted)
     # X_train, X_test, y_train, y_test = cv.train_test_split(df, df["Won"], test_size=0.1, random_state=0)
     # clf = svm.SVC(kernel='linear', C=1).fit(X_train, y_train)
     # print clf.score(X_test, y_test)

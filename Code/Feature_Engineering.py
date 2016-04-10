@@ -29,9 +29,12 @@ def main():
     df = df.drop('Runs', 1)
     df = df.drop('Balls', 1)
     df = df.drop('Date', 1)
-    logistic(df)
+    #logistic(df)
 
     df.to_csv('temp_afterFeatureEngineering.csv')
+
+if __name__ =='__main__':
+    main()
 
 
 

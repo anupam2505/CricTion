@@ -82,10 +82,11 @@ def create_dataset(bowls_bowled, inning):
                         toss =1;
                     else:
                         toss=0;
-                        if (row["Team_Playing"] == row["Team_Won"]):
-                            won =1;
-                        else:
-                            won=0
+
+                    if (row["Team_Playing"] == row["Team_Won"]):
+                        won =1;
+                    else:
+                        won=0
                     data = [row["Runs"],row["Balls"], toss, row["Venue"], row["Team1"], row["Team2"],
                             row["Wickets"], row["Date"], row["RPO"], won]
                     final_data.append(data)
