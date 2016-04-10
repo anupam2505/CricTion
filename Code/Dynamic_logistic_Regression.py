@@ -70,13 +70,24 @@ def create_dataset(bowls_bowled, inning):
         file_path = os.path.join(folderpath, f)
         with open(file_path) as csv_file:
             a = csv.writer(open('temp.csv', 'wb'))
-            a.writerow(['Runs','Balls', 'Team_Won', 'Team_Playing', 'Toss', 'Venue', 'Team1', 'Team2', 'Wickets','Date', 'RPO'])
+            a.writerow(['Runs','Balls','Toss', 'Venue', 'Team1', 'Team2', 'Wickets','Date', 'RPO', 'Won'])
+            # Important features are RPO, Toss, Venue, Team1, Team2, Wickets, RPO, FD
+            # Output : Won
+            toss=0;
+            won=0;
             reader = csv.DictReader(csv_file, delimiter=',')
             for row in reader:
                 if (row["Balls"]==bowls_bowled):
-
-                    data = [row["Runs"],row["Balls"], row["Team_Won"], row["Team_Playing"], row["Toss"], row["Venue"], row["Team1"], row["Team2"],
-                            row["Wickets"], row["Date"], row["RPO"]]
+                    if (row["Team_Playing"] == row["Toss"]):
+                        toss =1;
+                    else:
+                        toss=0;
+                        if (row["Team_Playing"] == row["Team_Won"]):
+                            won =1;
+                        else:
+                            won=0
+                    data = [row["Runs"],row["Balls"], toss, row["Venue"], row["Team1"], row["Team2"],
+                            row["Wickets"], row["Date"], row["RPO"], won]
                     final_data.append(data)
                     print data
     print final_data
