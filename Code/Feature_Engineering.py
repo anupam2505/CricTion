@@ -21,7 +21,14 @@ def main():
     print (df.columns)
     # Vectorize the categorical columns: e & f
     df, _, _ = one_hot_dataframe(df, ['Team1', 'Team2', 'Venue'], replace=True)
-    print df
+    #print df
+    df["RPO"]= df["RPO"]/df["RPO"].max();
+    df["Wickets"]= df["Wickets"]/df["Wickets"].max();
+    df = df.drop('Runs', 1)
+    df = df.drop('Balls', 1)
+    df = df.drop('Date', 1)
+
+
     df.to_csv('temp_afterFeatureEngineering.csv')
 
 

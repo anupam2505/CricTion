@@ -71,7 +71,7 @@ def create_dataset(bowls_bowled, inning):
         with open(file_path) as csv_file:
             a = csv.writer(open('temp.csv', 'wb'))
             a.writerow(['Runs','Balls','Toss', 'Venue', 'Team1', 'Team2', 'Wickets','Date', 'RPO', 'Won'])
-            # Important features are RPO, Toss, Venue, Team1, Team2, Wickets, RPO, FD
+            # Important features are Toss, Venue, Team1, Team2, Wickets, RPO, FD
             # Output : Won
             toss=0;
             won=0;
