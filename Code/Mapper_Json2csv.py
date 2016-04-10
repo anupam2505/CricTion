@@ -57,7 +57,7 @@ def main():
                         wickets = wickets+1
                     toss = data["info"]["toss"]["winner"]
                     team_playing = data['innings'][0]["1st innings"]["team"]
-                    RPO = int(run*6)/int(ball)
+                    RPO = float(run*6)/int(ball)
                     team1 = data['innings'][0]["1st innings"]["team"]
                     team2 = data['innings'][1]["2nd innings"]["team"]
                     if "winner" in (data["info"]["outcome"]).keys():
@@ -90,7 +90,7 @@ def main():
                         wickets = wickets+1
                     toss = data["info"]["toss"]["winner"]
                     team_playing = data['innings'][1]["2nd innings"]["team"]
-                    RPO = int(run*6)/int(ball)
+                    RPO = float(run*6)/int(ball)
                     team1 = data['innings'][0]["1st innings"]["team"]
                     team2 = data['innings'][1]["2nd innings"]["team"]
                     if "winner" in (data["info"]["outcome"]).keys():
