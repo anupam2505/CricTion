@@ -2,7 +2,6 @@ import csv
 import argparse
 import os
 import ntpath
-import datetime
 import numpy
 import collections
 
