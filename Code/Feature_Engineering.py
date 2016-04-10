@@ -1,5 +1,6 @@
 import pandas as pd
 from sklearn.feature_extraction import DictVectorizer
+from logistic_regression import logistic
 
 def one_hot_dataframe(data, cols, replace=False):
     """ Takes a dataframe and a list of columns that need to be encoded.
@@ -18,7 +19,8 @@ def main():
 
     # Get a random DataFrame
     df = pd.read_csv('temp.csv')
-    print (df.columns)
+    #print df.describe()
+    #print (df.columns)
     # Vectorize the categorical columns: e & f
     df, _, _ = one_hot_dataframe(df, ['Team1', 'Team2', 'Venue'], replace=True)
     #print df
@@ -27,10 +29,9 @@ def main():
     df = df.drop('Runs', 1)
     df = df.drop('Balls', 1)
     df = df.drop('Date', 1)
-
+    logistic(df)
 
     df.to_csv('temp_afterFeatureEngineering.csv')
 
 
-if __name__ =='__main__':
-    main()
+
