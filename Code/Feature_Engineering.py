@@ -1,6 +1,6 @@
 import pandas as pd
 from sklearn.feature_extraction import DictVectorizer
-from logistic_regression import logistic
+from Model import logistic
 
 def one_hot_dataframe(data, cols, replace=False):
     """ Takes a dataframe and a list of columns that need to be encoded.
