@@ -2,6 +2,7 @@ import csv
 import argparse
 import os
 import ntpath
+import datetime
 import numpy
 import collections
 
@@ -20,7 +21,10 @@ def main():
     form1 = collections.deque(maxlen=5)
     form2 = collections.deque(maxlen=5)
     coef = [ (1-0.2041)**(4-i) for i in range(0,5)]
-
+    reg = 0.00000001
+    fd1 = 0.01
+    fd2 = 0.01
+    
     for f in os.listdir(folder_path):
         file_path = os.path.join(folder_path, f)
         if os.path.isdir(file_path):
@@ -38,44 +42,42 @@ def main():
             except:
                 pass
                 
+            for files in os.listdir(folder_path):
+                if files == f:
+                    break;
+                f_path = os.path.join(folder_path, files)
+                with open(f_path, 'r') as prev:
+                    reader = csv.reader(prev);next(reader)
+                    try:
+                        line = next(reader)
+
+                        if(Team1 == line[8] or line[9]):
+                            form1.append(1) if Team1 == line[10] else form1.append(0)
+                        
+                        if(Team2 == line[8] or line[9]):
+                            form2.append(1) if Team2 == line[10] else form2.append(0)
+                    except:
+                        pass
+
+            if(len(form1) < 5 or len(form2) < 5):
+                fd1 = None
+                fd2 = None
+            else:
+                f1 = numpy.average(form1,0,coef) + reg
+                f2 = numpy.average(form2,0,coef) + reg             
+                fd1 = round(((f1-f2)/f1)*100,2)
+                fd2 = round(((f2-f1)/f2)*100,2)
+                print f1, f2, fd1, fd2
+
+                row.append(fd1)
+                data1.append(row)
+                for row in curr_reader:
+                    row.append(fd1)
+                    data1.append(row)
 
             file_name = ntpath.basename(str(f)).split('.')[0]
             with open('CSV_Data/Innings1/'+ file_name + '.csv' ,'w') as newfile:
                 writer = csv.writer(newfile)
-                # write to file form difference
-
-                for files in os.listdir(folder_path):
-                    if files == f:
-                        break;
-                    f_path = os.path.join(folder_path, files)
-                    with open(f_path, 'r') as prev:
-                        reader = csv.reader(prev);next(reader)
-                        try:
-                            line = next(reader)
-
-                            if(Team1 == line[8] or line[9]):
-                                form1.append(1) if Team1 == line[10] else form1.append(0)
-                            
-                            if(Team2 == line[8] or line[9]):
-                                form2.append(1) if Team2 == line[10] else form2.append(0)
-                        except:
-                            pass
-
-                if(len(form1) < 5 or len(form2) < 5):
-                    fd1 = None
-                    fd2 = None
-                else:
-                    f1 = numpy.average(form1,0,coef)
-                    f2 = numpy.average(form2,0,coef)                   
-                    fd1 = round((f1-f2/f1)*100,2)
-                    fd2 = round((f2-f1/f2)*100,2)
-                
-                    row.append(fd1)
-                    data1.append(row)
-                    for row in curr_reader:
-                        row.append(fd1)
-                        data1.append(row)
-
                 writer.writerows(data1)
 
             file2 = str(file_name).split('_')[0] + '_2'
