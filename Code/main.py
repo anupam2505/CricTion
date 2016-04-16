@@ -1,14 +1,14 @@
+
 import pandas as pd
-from Model import logistic
+from Model import random_forest
 from Model import SVM_cross_validation
-from Feature_Engineering import main as fe
-
-
+from Model import logistic
 
 def main():
     #fe();
     df = pd.read_csv('temp_afterFeatureEngineering.csv')
     #logistic(df)
+    #random_forest(df)
     SVM_cross_validation(df)
 
 
