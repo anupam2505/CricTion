@@ -4,7 +4,7 @@ from sklearn import svm
 from sklearn.ensemble import RandomForestClassifier
 from numpy import genfromtxt, savetxt
 from sklearn.linear_model import LogisticRegression
-
+import metrics
 
 # def logistic(df):
 #     train_cols = df.columns[1:]
@@ -17,9 +17,10 @@ def SVM_cross_validation(df):
     clf = svm.LinearSVC()
     df_target = df["Won"]
     df = df.drop('Won', 1)
-    scores = cv.cross_val_score(clf, df,df_target , cv=10)
-    print scores
-    print("Accuracy of SVM: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    p = cv.cross_val_score(clf, df,df_target , cv=10, scoring='precision').mean()
+    print l.mean()
+    # print("Accuracy of SVM: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    # return scores.mean(),
 
 
 def random_forest(df):
