@@ -14,12 +14,12 @@ from sklearn.linear_model import LogisticRegression
 
 
 def SVM_cross_validation(df):
-    clf = svm.SVC(kernel='linear', C=1)
+    clf = svm.LinearSVC()
     df_target = df["Won"]
     df = df.drop('Won', 1)
     scores = cv.cross_val_score(clf, df,df_target , cv=10)
     print scores
-    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    print("Accuracy of SVM: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
 
 def random_forest(df):
@@ -28,7 +28,7 @@ def random_forest(df):
     rf = RandomForestClassifier(n_estimators=600)
     scores = cv.cross_val_score(rf, df,df_target , cv=10)
     print scores
-    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    print("Accuracy of RF: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 
 def logistic (df):
     df_target = df["Won"]
@@ -36,5 +36,5 @@ def logistic (df):
     logistic = LogisticRegression()
     scores = cv.cross_val_score(logistic, df,df_target , cv=10)
     print scores
-    print("Accuracy: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    print("Accuracy of Logistic: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
 

@@ -26,9 +26,13 @@ def main():
     #print df
     df["RPO"]= df["RPO"]/df["RPO"].max();
     df["Wickets"]= df["Wickets"]/df["Wickets"].max();
+    df["form_difference"]= df["form_difference"]/(df["form_difference"].max()-df["form_difference"].min());
+    df["wrl"]= df["wrl"]/((df["wrl"].max())-(df["wrl"].min()));
     df = df.drop('Runs', 1)
     df = df.drop('Balls', 1)
     df = df.drop('Date', 1)
+    df = df.drop('wrl', 1)
+
     #logistic(df)
 
     df.to_csv('temp_afterFeatureEngineering.csv')

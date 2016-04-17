@@ -31,12 +31,11 @@ def main():
             break;
         with open(file_path, 'r') as curr:
             curr_reader = csv.reader(curr)
-
-            data1 = []
-            row = next(curr_reader)
-            row.append('form_difference')
-            data1.append(row)
-            try: 
+            try:
+                data1 = []
+                row = next(curr_reader)
+                row.append('form_difference')
+                data1.append(row)
                 row = next(curr_reader)
                 Team1,Team2 = row[8],row[9]
             except:
@@ -47,8 +46,8 @@ def main():
                     break;
                 f_path = os.path.join(folder_path, files)
                 with open(f_path, 'r') as prev:
-                    reader = csv.reader(prev);next(reader)
                     try:
+                        reader = csv.reader(prev);next(reader)
                         line = next(reader)
 
                         if(Team1 == line[8] or line[9]):
