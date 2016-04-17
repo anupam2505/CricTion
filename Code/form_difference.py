@@ -59,8 +59,8 @@ def main():
                         pass
 
             if(len(form1) < 5 or len(form2) < 5):
-                fd1 = None
-                fd2 = None
+                fd1 = 0
+                fd2 = 0
             else:
                 f1 = numpy.average(form1,0,coef) + reg
                 f2 = numpy.average(form2,0,coef) + reg             

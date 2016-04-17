@@ -32,7 +32,7 @@ def main():
     df = df.drop('Balls', 1)
     df = df.drop('Date', 1)
     df = df.drop('wrl', 1)
-
+    #df = df.drop('form_difference', 1)
     #logistic(df)
     df.to_csv('temp_afterFeatureEngineering.csv',index = False)
     return df
