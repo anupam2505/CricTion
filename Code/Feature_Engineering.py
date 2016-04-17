@@ -34,8 +34,8 @@ def main():
     df = df.drop('wrl', 1)
 
     #logistic(df)
-
-    df.to_csv('temp_afterFeatureEngineering.csv')
+    df.to_csv('temp_afterFeatureEngineering.csv',index = False)
+    return df
 
 if __name__ =='__main__':
     main()

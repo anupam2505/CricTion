@@ -14,28 +14,38 @@ import metrics
 
 
 def SVM_cross_validation(df):
-    clf = svm.LinearSVC()
+    clf = svm.LinearSVC(C=10)
     df_target = df["Won"]
     df = df.drop('Won', 1)
     p = cv.cross_val_score(clf, df,df_target , cv=10, scoring='precision').mean()
-    print l.mean()
+    r = cv.cross_val_score(clf, df,df_target , cv=10, scoring='recall').mean()
+    f =  2 * (p * r) / (p + r)
     # print("Accuracy of SVM: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
     # return scores.mean(),
-
+    print "SVM Accuracy %s" % str(p)
+    return p, r, f
 
 def random_forest(df):
     df_target = df["Won"]
     df = df.drop('Won', 1)
-    rf = RandomForestClassifier(n_estimators=600)
-    scores = cv.cross_val_score(rf, df,df_target , cv=10)
-    print scores
-    print("Accuracy of RF: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    rf = RandomForestClassifier(n_estimators=100)
+    p = cv.cross_val_score(rf, df,df_target , cv=10, scoring='precision').mean()
+    r = cv.cross_val_score(rf, df,df_target , cv=10, scoring='recall').mean()
+    f =  2 * (p * r) / (p + r)
+    # print("Accuracy of SVM: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    # return scores.mean(),
+    print "RF Accuracy %s" % str(p)
+    return p, r, f
 
 def logistic (df):
     df_target = df["Won"]
     df = df.drop('Won', 1)
+    df.index.name = None
     logistic = LogisticRegression()
-    scores = cv.cross_val_score(logistic, df,df_target , cv=10)
-    print scores
-    print("Accuracy of Logistic: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
-
+    p = cv.cross_val_score(logistic, df,df_target , cv=10, scoring='precision').mean()
+    r = cv.cross_val_score(logistic, df,df_target , cv=10, scoring='recall').mean()
+    f =  2 * (p * r) / (p + r)
+    # print("Accuracy of SVM: %0.2f (+/- %0.2f)" % (scores.mean(), scores.std() * 2))
+    # return scores.mean(),
+    print "LR Accuracy %s" % str(p)
+    return p, r, f
